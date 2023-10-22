@@ -17,7 +17,7 @@ class NumberParserTest {
     @Test
     fun `parseIntFromRomanNumerals converts multi character roman numerals to Ints correctly`() {
         assertThat(NumberParser.parseIntFromRomanNumerals("II")).isEqualTo(2)
-        assertThat(NumberParser.parseIntFromRomanNumerals("II")).isEqualTo(2)
+        assertThat(NumberParser.parseIntFromRomanNumerals("MMMDCCCLXXXVIII")).isEqualTo(3888)
     }
 
     @Test
@@ -25,6 +25,7 @@ class NumberParserTest {
         assertThat(NumberParser.parseIntFromRomanNumerals("IV")).isEqualTo(4)
         assertThat(NumberParser.parseIntFromRomanNumerals("CMXCIX")).isEqualTo(999)
         assertThat(NumberParser.parseIntFromRomanNumerals("MMCCCLXXII")).isEqualTo(2372)
+        assertThat(NumberParser.parseIntFromRomanNumerals("MMMCMXCIX")).isEqualTo(3999)
     }
 
     @Test
