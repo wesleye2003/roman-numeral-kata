@@ -1,7 +1,11 @@
 fun main(args: Array<String>) {
-    println("Hello World!")
-
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+    for (arg in args) {
+        if (arg.toIntOrNull() != null) {
+            val romanNumerals = NumberParser.parseRomanNumeralsFromInt(arg.toInt())
+            println("${arg}'s Roman Numeral value is $romanNumerals")
+        } else {
+            val int = NumberParser.parseIntFromRomanNumerals(arg)
+            println("${arg}'s integer value is $int")
+        }
+    }
 }
