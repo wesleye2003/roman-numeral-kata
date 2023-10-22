@@ -60,6 +60,13 @@ object NumberParser {
 
         return if ((numeral == numeralList.first()) && (numeral == numeralList.last())) {
             true
+        } else if (
+            (numeralList.elementAtOrNull(numeral.index+1) != null) &&
+            (numeralList.elementAtOrNull(numeral.index-1) != null)
+        ) {
+            val nextNumeralIntegerValue = convertSimpleNumeralToInt(numeralList.elementAt(numeral.index+1).value)
+            val prevNumeralIntegerValue = convertSimpleNumeralToInt(numeralList.elementAt(numeral.index-1).value)
+            (integerNumeralValue in nextNumeralIntegerValue..prevNumeralIntegerValue)
         } else if (numeralList.elementAtOrNull(numeral.index+1) != null) {
             val nextNumeralIntegerValue = convertSimpleNumeralToInt(numeralList.elementAt(numeral.index+1).value)
             (integerNumeralValue >= nextNumeralIntegerValue)
