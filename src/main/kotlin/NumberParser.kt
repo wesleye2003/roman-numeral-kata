@@ -51,7 +51,7 @@ object NumberParser {
         return secondNumeralIntegerValue - firstNumeralIntegerValue
     }
 
-    fun isSimpleNumeral(
+    private fun isSimpleNumeral(
         numeral: IndexedValue<String>,
         numeralList: Iterable<IndexedValue<String>>
     ): Boolean {
@@ -70,7 +70,7 @@ object NumberParser {
         }
     }
 
-    fun validateNumeralFormat(
+    private fun validateNumeralFormat(
         numeral: IndexedValue<String>,
         numeralList: Iterable<IndexedValue<String>>
     ) {
@@ -83,7 +83,7 @@ object NumberParser {
         }
     }
 
-    fun isFirstPartOfComplexNumeral(
+    private fun isFirstPartOfComplexNumeral(
         numeral: IndexedValue<String>,
         numeralList: Iterable<IndexedValue<String>>
     ): Boolean {
