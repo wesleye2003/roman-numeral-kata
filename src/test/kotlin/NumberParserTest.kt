@@ -1,9 +1,10 @@
 import org.junit.jupiter.api.Test
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.assertThrows
 
 class NumberParserTest {
     @Test
-    fun `Single character roman numerals are converted to Ints correctly`() {
+    fun `parseIntFromRomanNumerals converts single character roman numerals to Ints correctly`() {
         assertThat(NumberParser.parseIntFromRomanNumerals("I")).isEqualTo(1)
         assertThat(NumberParser.parseIntFromRomanNumerals("V")).isEqualTo(5)
         assertThat(NumberParser.parseIntFromRomanNumerals("X")).isEqualTo(10)
@@ -14,27 +15,47 @@ class NumberParserTest {
     }
 
     @Test
-    fun `Standard multi character roman numerals are converted to Ints correctly`() {
+    fun `parseIntFromRomanNumerals throws errors for invalid strings`() {
+        val singleLetterError = assertThrows<Error> {
+            NumberParser.parseIntFromRomanNumerals("A")
+        }
+        val capitalWordError = assertThrows<Error> {
+            NumberParser.parseIntFromRomanNumerals("Test")
+        }
+        val lowercaseWordError = assertThrows<Error> {
+            NumberParser.parseIntFromRomanNumerals("string")
+        }
+
+        assertThat(singleLetterError).isInstanceOf(Error::class.java)
+        assertThat(singleLetterError.message).isEqualTo("Invalid Number String")
+        assertThat(capitalWordError).isInstanceOf(Error::class.java)
+        assertThat(capitalWordError.message).isEqualTo("Invalid Number String")
+        assertThat(lowercaseWordError).isInstanceOf(Error::class.java)
+        assertThat(lowercaseWordError.message).isEqualTo("Invalid Number String")
+    }
+
+    @Test
+    fun `parseIntFromRomanNumerals converts multi character roman numerals to Ints correctly`() {
         assertThat(NumberParser.parseIntFromRomanNumerals("II")).isEqualTo(2)
     }
 
     @Test
-    fun `Complicated multi character roman numerals are converted to Ints correctly`() {
+    fun `parseIntFromRomanNumerals converts complicated multi character roman numerals to Ints correctly`() {
         assertThat(NumberParser.parseIntFromRomanNumerals("IV")).isEqualTo(4)
     }
 
     @Test
-    fun `Ints are converted to single character roman numerals correctly`() {
+    fun `parseRomanNumeralsFromInt converts Ints to single character roman numerals correctly`() {
         assertThat(NumberParser.parseRomanNumeralsFromInt(1)).isEqualTo("I")
     }
 
     @Test
-    fun `Ints are converted to simple multi character roman numerals correctly`() {
+    fun `parseRomanNumeralsFromInt converts Ints to simple multi character roman numerals correctly`() {
         assertThat(NumberParser.parseRomanNumeralsFromInt(2)).isEqualTo("II")
     }
 
     @Test
-    fun `Ints are converted to complex multi character roman numerals correctly`() {
+    fun `parseRomanNumeralsFromInt converts Ints to complex multi character roman numerals correctly`() {
         assertThat(NumberParser.parseRomanNumeralsFromInt(4)).isEqualTo("IV")
     }
 }
