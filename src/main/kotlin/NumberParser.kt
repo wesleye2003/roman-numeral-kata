@@ -91,6 +91,28 @@ object NumberParser {
                 numeralFiveHundred -> throw Error("Invalid Number String")
             }
         }
+        if (
+            isFirstPartOfComplexNumeral(numeral, numeralList)
+        ) {
+            if (
+                numeral.value == numeralOne && (
+                        numeralList.elementAt(numeral.index + 1).value != (numeralOne) &&
+                                numeralList.elementAt(numeral.index + 1).value != (numeralFive) &&
+                                numeralList.elementAt(numeral.index + 1).value != (numeralTen)
+                        )
+            ) {
+                throw Error("Invalid Number String")
+            } else if (
+                numeral.value == numeralTen && (
+                        numeralList.elementAt(numeral.index + 1).value != (numeralTen) &&
+                                numeralList.elementAt(numeral.index + 1).value != (numeralFifty) &&
+                                numeralList.elementAt(numeral.index + 1).value != (numeralOneHundred) &&
+                                numeralList.elementAt(numeral.index + 1).value != (numeralOneThousand)
+                        )
+            ) {
+                throw Error("Invalid Number String")
+            }
+        }
     }
 
     private fun isFirstPartOfComplexNumeral(
