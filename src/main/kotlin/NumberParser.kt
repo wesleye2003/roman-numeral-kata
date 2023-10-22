@@ -1,4 +1,6 @@
 object NumberParser {
+    // Page I referenced for the "rules" of Roman Numerals:
+    // https://www.toppr.com/guides/maths/knowing-our-numbers/roman-numerals/
     private const val numeralOne = "I"
     private const val numeralFive = "V"
     private const val numeralTen = "X"
