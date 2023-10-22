@@ -14,7 +14,16 @@ object NumberParser {
 
         val numeralList = numString.map{it.toString()}.withIndex()
         var finalNumber = 0
-
+        for (numeral in numeralList) {
+            validateNumeralFormat(numeral, numeralList)
+            if (isSimpleNumeral(numeral, numeralList)) {
+                finalNumber += convertSimpleNumeralToInt(numeral.value)
+            } else if (isFirstPartOfComplexNumeral(numeral, numeralList)) {
+                val nextNumeral = numeralList.elementAt(numeral.index+1).value
+                val complexNumeral = numeral.value + nextNumeral
+                finalNumber += convertComplexNumeralToInt(complexNumeral)
+            }
+        }
         return finalNumber
     }
 
@@ -36,6 +45,55 @@ object NumberParser {
     }
 
     private fun convertComplexNumeralToInt(numString: String): Int {
-        return 0
+        val firstNumeralIntegerValue = convertSimpleNumeralToInt(numString.map{it.toString()}[0])
+        val secondNumeralIntegerValue = convertSimpleNumeralToInt(numString.map{it.toString()}[1])
+
+        return secondNumeralIntegerValue - firstNumeralIntegerValue
+    }
+
+    fun isSimpleNumeral(
+        numeral: IndexedValue<String>,
+        numeralList: Iterable<IndexedValue<String>>
+    ): Boolean {
+        val integerNumeralValue = convertSimpleNumeralToInt(numeral.value)
+
+        return if ((numeral == numeralList.first()) && (numeral == numeralList.last())) {
+            true
+        } else if (numeralList.elementAtOrNull(numeral.index+1) != null) {
+            val nextNumeralIntegerValue = convertSimpleNumeralToInt(numeralList.elementAt(numeral.index+1).value)
+            (integerNumeralValue >= nextNumeralIntegerValue)
+        } else if (numeralList.elementAtOrNull(numeral.index-1) != null) {
+            val prevNumeralIntegerValue = convertSimpleNumeralToInt(numeralList.elementAt(numeral.index-1).value)
+            (integerNumeralValue <= prevNumeralIntegerValue)
+        } else {
+            false
+        }
+    }
+
+    fun validateNumeralFormat(
+        numeral: IndexedValue<String>,
+        numeralList: Iterable<IndexedValue<String>>
+    ) {
+        if (isFirstPartOfComplexNumeral(numeral, numeralList)) {
+            when (numeral.value) {
+                numeralFive -> throw Error("Invalid Number String")
+                numeralFifty -> throw Error("Invalid Number String")
+                numeralFiveHundred -> throw Error("Invalid Number String")
+            }
+        }
+    }
+
+    fun isFirstPartOfComplexNumeral(
+        numeral: IndexedValue<String>,
+        numeralList: Iterable<IndexedValue<String>>
+    ): Boolean {
+        val integerNumeralValue = convertSimpleNumeralToInt(numeral.value)
+
+        return if (numeralList.elementAtOrNull(numeral.index+1) != null) {
+            val nextNumeralIntegerValue = convertSimpleNumeralToInt(numeralList.elementAt(numeral.index+1).value)
+            (integerNumeralValue < nextNumeralIntegerValue)
+        } else {
+            false
+        }
     }
 }
