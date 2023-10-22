@@ -1,2 +1,3 @@
-class NumberParser {
+object NumberParser {
+
 }
