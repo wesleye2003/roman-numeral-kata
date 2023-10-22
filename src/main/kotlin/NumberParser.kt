@@ -7,10 +7,10 @@ object NumberParser {
     private const val numeralFiveHundred = "D"
     private const val numeralOneThousand = "M"
     fun parseIntFromRomanNumerals(numString: String): Int {
-
+        return 0
     }
 
     fun parseRomanNumeralsFromInt(intToConvert: Int): String {
-
+        return "Test"
     }
 }
