@@ -15,23 +15,13 @@ class NumberParserTest {
     }
 
     @Test
-    fun `parseIntFromRomanNumerals throws errors for invalid strings`() {
-        val singleLetterError = assertThrows<Error> {
-            NumberParser.parseIntFromRomanNumerals("A")
-        }
-        val capitalWordError = assertThrows<Error> {
-            NumberParser.parseIntFromRomanNumerals("Test")
-        }
-        val lowercaseWordError = assertThrows<Error> {
-            NumberParser.parseIntFromRomanNumerals("string")
-        }
+    fun `parseIntFromRomanNumerals converts multi character roman numerals to Ints correctly`() {
+        assertThat(NumberParser.parseIntFromRomanNumerals("II")).isEqualTo(2)
+    }
 
-        assertThat(singleLetterError).isInstanceOf(Error::class.java)
-        assertThat(singleLetterError.message).isEqualTo("Invalid Number String")
-        assertThat(capitalWordError).isInstanceOf(Error::class.java)
-        assertThat(capitalWordError.message).isEqualTo("Invalid Number String")
-        assertThat(lowercaseWordError).isInstanceOf(Error::class.java)
-        assertThat(lowercaseWordError.message).isEqualTo("Invalid Number String")
+    @Test
+    fun `parseIntFromRomanNumerals converts complicated multi character roman numerals to Ints correctly`() {
+        assertThat(NumberParser.parseIntFromRomanNumerals("IV")).isEqualTo(4)
     }
 
     @Test
@@ -46,13 +36,28 @@ class NumberParserTest {
     }
 
     @Test
-    fun `parseIntFromRomanNumerals converts multi character roman numerals to Ints correctly`() {
-        assertThat(NumberParser.parseIntFromRomanNumerals("II")).isEqualTo(2)
-    }
+    fun `parseIntFromRomanNumerals throws errors for invalid strings`() {
+        val singleLetterError = assertThrows<Error> {
+            NumberParser.parseIntFromRomanNumerals("A")
+        }
+        val capitalWordError = assertThrows<Error> {
+            NumberParser.parseIntFromRomanNumerals("Test")
+        }
+        val lowercaseWordError = assertThrows<Error> {
+            NumberParser.parseIntFromRomanNumerals("string")
+        }
+        val invalidFifteenError = assertThrows<Error> {
+            NumberParser.parseIntFromRomanNumerals("VVV")
+        }
 
-    @Test
-    fun `parseIntFromRomanNumerals converts complicated multi character roman numerals to Ints correctly`() {
-        assertThat(NumberParser.parseIntFromRomanNumerals("IV")).isEqualTo(4)
+        assertThat(singleLetterError).isInstanceOf(Error::class.java)
+        assertThat(singleLetterError.message).isEqualTo("Invalid Number String")
+        assertThat(capitalWordError).isInstanceOf(Error::class.java)
+        assertThat(capitalWordError.message).isEqualTo("Invalid Number String")
+        assertThat(lowercaseWordError).isInstanceOf(Error::class.java)
+        assertThat(lowercaseWordError.message).isEqualTo("Invalid Number String")
+        assertThat(invalidFifteenError).isInstanceOf(Error::class.java)
+        assertThat(invalidFifteenError.message).isEqualTo("Invalid Number String")
     }
 
     @Test
