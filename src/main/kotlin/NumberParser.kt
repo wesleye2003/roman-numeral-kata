@@ -7,12 +7,13 @@ object NumberParser {
     private const val numeralFiveHundred = "D"
     private const val numeralOneThousand = "M"
     fun parseIntFromRomanNumerals(numString: String): Int {
+        val uppercaseNumString = numString.uppercase()
         // convert simple numerals immediately
-        if (numString.length == 1) {
-            return convertSimpleNumeralToInt(numString)
+        if (uppercaseNumString.length == 1) {
+            return convertSimpleNumeralToInt(uppercaseNumString)
         }
 
-        val numeralList = numString.map{it.toString()}.withIndex()
+        val numeralList = uppercaseNumString.map{it.toString()}.withIndex()
         var finalNumber = 0
         for (numeral in numeralList) {
             validateNumeralFormat(numeral, numeralList)
