@@ -92,7 +92,7 @@ object NumberParser {
 
         return if (numeralList.elementAtOrNull(numeral.index+1) != null) {
             val nextNumeralIntegerValue = convertSimpleNumeralToInt(numeralList.elementAt(numeral.index+1).value)
-            (integerNumeralValue < nextNumeralIntegerValue)
+            (integerNumeralValue <= nextNumeralIntegerValue)
         } else {
             false
         }
