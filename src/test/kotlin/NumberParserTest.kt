@@ -35,6 +35,17 @@ class NumberParserTest {
     }
 
     @Test
+    fun `parseIntFromRomanNumerals is not case sensitive`() {
+        assertThat(NumberParser.parseIntFromRomanNumerals("i")).isEqualTo(1)
+        assertThat(NumberParser.parseIntFromRomanNumerals("v")).isEqualTo(5)
+        assertThat(NumberParser.parseIntFromRomanNumerals("x")).isEqualTo(10)
+        assertThat(NumberParser.parseIntFromRomanNumerals("l")).isEqualTo(50)
+        assertThat(NumberParser.parseIntFromRomanNumerals("c")).isEqualTo(100)
+        assertThat(NumberParser.parseIntFromRomanNumerals("d")).isEqualTo(500)
+        assertThat(NumberParser.parseIntFromRomanNumerals("m")).isEqualTo(1000)
+    }
+
+    @Test
     fun `parseIntFromRomanNumerals converts multi character roman numerals to Ints correctly`() {
         assertThat(NumberParser.parseIntFromRomanNumerals("II")).isEqualTo(2)
     }
