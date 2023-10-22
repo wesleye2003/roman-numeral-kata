@@ -7,7 +7,15 @@ object NumberParser {
     private const val numeralFiveHundred = "D"
     private const val numeralOneThousand = "M"
     fun parseIntFromRomanNumerals(numString: String): Int {
-        return convertSimpleNumeralToInt(numString)
+        // convert simple numerals immediately
+        if (numString.length == 1) {
+            return convertSimpleNumeralToInt(numString)
+        }
+
+        val numeralList = numString.map{it.toString()}.withIndex()
+        var finalNumber = 0
+
+        return finalNumber
     }
 
     fun parseRomanNumeralsFromInt(intToConvert: Int): String {
